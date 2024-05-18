@@ -1,5 +1,7 @@
 from tkinter import ttk
 from tkinter import *
+from tkcalendar import Calendar
+from aksh_domain import calculate_risk_of_sequela
 
 window = Tk()
 
@@ -88,9 +90,10 @@ Checkbutton(frame, text="Несимметричный доступ", font='Arial
 join = BooleanVar()
 join.set(False)
 Checkbutton(frame, text="Ошибки при наложении швов", font='Arial 9', variable=join).place(x=165, y=335)
+result = Label(text='',font=15)
+result.place (x=40,y=450)
 
-
-def calculate_risk():
+def calculate_action():
     age = int(vvod7.get())
     lg = int(vvod8.get())
     ka = int(vvod9.get())
@@ -101,21 +104,14 @@ def calculate_risk():
     dindo = int(vvod13.get())
     access = acc.get()
     joint = join.get()
-
-    is_bleeding = bleeding >= 1000
-    risk = 0.80806 + 0.04355 * age - 0.07624 * lg + 0.0245 * ka - 1.366 * int(
-        is_bleeding) - 1.4601 * charlsone - 0.30636 * es - 1.37319 * int(sequela) - 0.34939 * dindo - 0.94 * int(
-        access) - 1.46815 * int(joint)
+    risk = calculate_risk_of_sequela(age, lg, ka, bleeding, charlsone, es, sequela, dindo, access, joint)
     if risk > -0.650215:
         result.config(text=f"Риск развития осложнений: {risk}\nОсложнения маловероятны")
     else:
         result.config(text=f"Риск развития осложнений: {risk}\nПрогнозируется наличие осложнений")
 
-result = Label(text='',font=15)
-result.place (x=40,y=450)
 
-
-btn = ttk.Button(text="Рассчитать",width=60, command=calculate_risk)
+btn = ttk.Button(text="Рассчитать",width=60, command=calculate_action)
 btn.place(x=40, y=390)
 
 window.mainloop()
