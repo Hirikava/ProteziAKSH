@@ -1,14 +1,9 @@
 from aksh_domain import calculate_risk_of_sequela
 from aksh_data import save_result_to_csv
 import datetime
-import argparse
 
 
 def main():
-    argument_parser = argparse.ArgumentParser()
-    argument_parser.add_argument("-f", "--file", required=True, dest="file")
-    args = argument_parser.parse_args()
-
     gospitalization_date = datetime.datetime.now()
     second_name = input("Введите фамилию пациента:")
     name = input("Введите имя пациента:")
@@ -32,9 +27,10 @@ def main():
     else:
         print("Прогнозируется наличие осложнений")
 
-    save_result_to_csv(args.file,
-                       [name, second_name, surname, sex, gospitalization_date, age, lg, ka, bleeding, charlstone, es, sequella,
-                 dindo, access, joint, risk_cf])
+    save_result_to_csv("result.csv",
+                       [name, second_name, surname, sex, gospitalization_date, age, lg, ka, bleeding, charlstone, es,
+                        sequella,
+                        dindo, access, joint, risk_cf])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,1 @@
+python -m PyInstaller --noconsole --onefile --icon=favicon.ico aksh_gui.py
