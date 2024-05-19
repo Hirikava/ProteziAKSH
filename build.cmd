@@ -1,1 +1,1 @@
-python -m PyInstaller --noconsole --onefile --icon=favicon.ico aksh_gui.py
+python -m PyInstaller --hidden-import "babel.numbers" --noconsole --onefile --icon=favicon.ico aksh_gui.py
